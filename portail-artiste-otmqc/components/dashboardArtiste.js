@@ -1,5 +1,5 @@
 import { getCurrentUser } from "../auth.js";
-import { renderPlaylistManager } from "./playlistManager.js";
+import { renderPlaylistManager } from "./sections/playlistManager.js";
 
 export function renderDashboardArtiste(container) {
   const user = getCurrentUser();
