@@ -1,3 +1,5 @@
 {
-  "outputDirectory": "portail-artiste-otmqc"
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" }
+  ]
 }
