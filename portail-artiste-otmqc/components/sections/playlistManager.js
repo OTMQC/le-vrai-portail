@@ -1,4 +1,4 @@
-export function renderPlaylistManager(container) {
+export function renderPlaylistManager(container, userId = "julz001") {
   container.innerHTML = `
     <h3>Gestion des playlists Spotify 🎵</h3>
     <form id="addPlaylistForm">
@@ -7,38 +7,43 @@ export function renderPlaylistManager(container) {
     </form>
     <ul id="playlistList"></ul>
   `;
-  loadPlaylists();
-  document.getElementById("addPlaylistForm").onsubmit = addPlaylist;
+
+  loadPlaylists(userId);
+
+  document.getElementById("addPlaylistForm").onsubmit = (e) => addPlaylist(e, userId);
 }
+
 function getPlaylists() {
   return JSON.parse(localStorage.getItem("playlists") || "{}");
 }
+
 function savePlaylists(p) {
   localStorage.setItem("playlists", JSON.stringify(p));
 }
-function addPlaylist(e) {
+
+function addPlaylist(e, userId) {
   e.preventDefault();
   const url = playlistUrl.value;
   const playlists = getPlaylists();
-  const id = "julz001";
-  playlists[id] = playlists[id] || [];
-  playlists[id].push(url);
+  playlists[userId] = playlists[userId] || [];
+  playlists[userId].push(url);
   savePlaylists(playlists);
-  loadPlaylists();
+  loadPlaylists(userId);
   e.target.reset();
 }
-function loadPlaylists() {
+
+function loadPlaylists(userId) {
   const list = document.getElementById("playlistList");
   list.innerHTML = "";
-  const id = "julz001";
-  (getPlaylists()[id] || []).forEach((url, i) => {
-    list.innerHTML += `<li>${url} <button onclick="deletePlaylist(${i})">❌</button></li>`;
+  (getPlaylists()[userId] || []).forEach((url, i) => {
+    list.innerHTML += `<li>${url} <button onclick="deletePlaylist('${userId}', ${i})">❌</button></li>`;
   });
 }
-window.deletePlaylist = (index) => {
-  const id = "julz001";
+
+window.deletePlaylist = (userId, index) => {
   const playlists = getPlaylists();
-  playlists[id].splice(index, 1);
+  playlists[userId].splice(index, 1);
   savePlaylists(playlists);
-  loadPlaylists();
+  loadPlaylists(userId);
 };
+

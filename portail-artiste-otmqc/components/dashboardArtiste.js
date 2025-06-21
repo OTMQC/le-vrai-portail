@@ -1,4 +1,5 @@
 import { getCurrentUser } from "../auth.js";
+import { renderPlaylistManager } from "../sections/playlistManager.js";
 
 export function renderDashboardArtiste(container) {
   const user = getCurrentUser();
@@ -125,5 +126,5 @@ export function renderDashboardArtiste(container) {
   `;
 
   document.getElementById("btnViewPlaylists").onclick = () =>
-    showPlaylists(document.getElementById("artistContent"));
+  renderPlaylistManager(document.getElementById("artistContent"), user.id);
 }
