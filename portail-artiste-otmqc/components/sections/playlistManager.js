@@ -23,7 +23,7 @@ function savePlaylists(p) {
 
 function addPlaylist(e, userId) {
   e.preventDefault();
-  const url = playlistUrl.value;
+  const url = document.getElementById("playlistUrl").value;
   const playlists = getPlaylists();
   playlists[userId] = playlists[userId] || [];
   playlists[userId].push(url);
@@ -35,7 +35,14 @@ function addPlaylist(e, userId) {
 function loadPlaylists(userId) {
   const list = document.getElementById("playlistList");
   list.innerHTML = "";
-  (getPlaylists()[userId] || []).forEach((url, i) => {
+  const userPlaylists = getPlaylists()[userId] || [];
+
+  if (userPlaylists.length === 0) {
+    list.innerHTML = "<p>Aucune playlist ajoutée.</p>";
+    return;
+  }
+
+  userPlaylists.forEach((url, i) => {
     list.innerHTML += `<li>${url} <button onclick="deletePlaylist('${userId}', ${i})">❌</button></li>`;
   });
 }
@@ -46,4 +53,3 @@ window.deletePlaylist = (userId, index) => {
   savePlaylists(playlists);
   loadPlaylists(userId);
 };
-

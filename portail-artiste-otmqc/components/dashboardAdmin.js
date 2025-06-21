@@ -1,6 +1,6 @@
 import { renderArtistManager } from "./sections/artistManager.js";
 import { renderDocumentSender } from "./sections/documentSender.js";
-import { renderPlaylistManager } from "./sections/playlistManager.js";
+import { renderPlaylistManager } from "./playlistManager.js";
 
 export function renderDashboardAdmin(container) {
   container.innerHTML = `
