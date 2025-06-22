@@ -49,30 +49,37 @@ export function renderDashboardAdmin(container) {
       }
 
       h2.admin-title {
-        font-size: 1.8rem;
-        text-shadow: 0 0 10px var(--accent);
+        font-size: 2rem;
+        text-shadow: 0 0 12px var(--accent), 0 0 25px #00f0ff;
         text-align: center;
         color: #00f0ff;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        font-family: 'Orbitron', sans-serif;
+        animation: fadeIn 1.2s ease-out;
       }
 
       .clock-section {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: flex-end;
         gap: 2rem;
-        margin-bottom: 2.5rem;
+        margin-bottom: 3rem;
+        animation: fadeIn 1.6s ease-in;
       }
 
       .clock-box {
         text-align: center;
-        min-width: 110px;
+        min-width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
       }
 
       .clock-flag {
         width: 30px;
         height: auto;
-        margin-bottom: 0.4rem;
         filter: brightness(0) saturate(100%) invert(51%) sepia(99%) saturate(350%) hue-rotate(155deg) brightness(102%) contrast(97%);
       }
 
@@ -112,6 +119,17 @@ export function renderDashboardAdmin(container) {
         }
       }
 
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       @media (max-width: 768px) {
         .admin-wrapper {
           flex-direction: column;
@@ -143,7 +161,7 @@ export function renderDashboardAdmin(container) {
         <button id="btnManagePlaylists">Playlists</button>
       </div>
       <div class="admin-main">
-        <h2 class="admin-title">Console centrale d'administration OTMQC</h2>
+        <h2 class="admin-title">🧠 Nœud Central d’Opérations — OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
             <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Quebec flag" />

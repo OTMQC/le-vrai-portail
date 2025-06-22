@@ -625,6 +625,14 @@ tr:hover {
   max-width: 180px;
   filter: drop-shadow(0 0 8px #00f0ff);
   margin-bottom: 1rem;
+
+  .clock-section {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+
 }
 
 
