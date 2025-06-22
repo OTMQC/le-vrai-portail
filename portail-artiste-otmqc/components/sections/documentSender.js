@@ -36,9 +36,7 @@ export function renderDocumentSender(container) {
         padding: 0.9rem 1rem;
         color: #fff;
         font-family: 'Orbitron', sans-serif;
-        width: 100%;
         font-size: 0.9rem;
-        box-shadow: inset 0 0 5px rgba(0,255,255,0.08);
       }
 
       .document-upload-wrapper input::placeholder {
@@ -55,7 +53,6 @@ export function renderDocumentSender(container) {
         border-radius: 14px;
         font-family: 'Orbitron', sans-serif;
         font-size: 1rem;
-        transition: 0.3s ease;
         border: none;
         cursor: pointer;
       }
