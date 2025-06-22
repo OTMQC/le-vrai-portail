@@ -50,43 +50,37 @@ export function renderDashboardAdmin(container) {
 
       h2.admin-title {
         font-size: 2rem;
-        text-shadow: 0 0 12px var(--accent), 0 0 25px #00f0ff;
+        text-shadow: 0 0 12px var(--accent);
         text-align: center;
         color: #00f0ff;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
         font-family: 'Orbitron', sans-serif;
-        animation: fadeIn 1.2s ease-out;
+        letter-spacing: 1.2px;
       }
 
       .clock-section {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        align-items: flex-end;
         gap: 2rem;
-        margin-bottom: 3rem;
-        animation: fadeIn 1.6s ease-in;
+        margin-bottom: 2.5rem;
       }
 
       .clock-box {
         text-align: center;
-        min-width: 120px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.3rem;
+        min-width: 110px;
       }
 
       .clock-flag {
-        width: 36px;
+        width: 38px;
         height: auto;
-        margin-bottom: 5px;
-        filter: brightness(0) saturate(100%) invert(47%) sepia(100%) saturate(750%) hue-rotate(170deg) brightness(102%) contrast(110%);
-        transition: transform 0.4s ease;
+        margin-bottom: 6px;
+        filter: brightness(0) saturate(100%) invert(47%) sepia(99%) saturate(1000%) hue-rotate(165deg) brightness(110%) contrast(120%);
+        transition: transform 0.3s ease;
       }
 
       .clock-flag:hover {
-        transform: scale(1.1) rotate(2deg);
+        transform: scale(1.1) rotate(1.5deg);
       }
 
       .clock-label {
@@ -125,17 +119,6 @@ export function renderDashboardAdmin(container) {
         }
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(15px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
       @media (max-width: 768px) {
         .admin-wrapper {
           flex-direction: column;
@@ -170,17 +153,17 @@ export function renderDashboardAdmin(container) {
         <h2 class="admin-title">Nœud Central d’Opérations — OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
-            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Quebec flag" />
+            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Québec" />
             <div class="clock-label">MONTRÉAL</div>
             <span id="clock-montreal" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" alt="France flag" />
+            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" alt="France" />
             <div class="clock-label">PARIS</div>
             <span id="clock-paris" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA flag" />
+            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA" />
             <div class="clock-label">LOS ANGELES</div>
             <span id="clock-la" class="digital-clock">--:--:--</span>
           </div>
