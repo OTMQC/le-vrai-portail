@@ -6,7 +6,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyAG14_2FT4EChamlilvCbjxHyKadvpDfgk",
   authDomain: "portail-artiste-otmqc.firebaseapp.com",
   projectId: "portail-artiste-otmqc",
-  storageBucket: "portail-artiste-otmqc.appspot.com",
+  storageBucket: "otmqc-docs-storage.appspot.com",
   messagingSenderId: "755801581824",
   appId: "1:755801581824:web:5f83315cce61508752ebe5",
   measurementId: "G-SZC934CRSR"
