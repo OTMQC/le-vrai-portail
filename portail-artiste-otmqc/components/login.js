@@ -12,18 +12,15 @@ export function renderLogin(container) {
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background: linear-gradient(145deg, #000, #060d12);
+        background: #000; /* noir uniforme */
         color: #00f0ff;
         font-family: 'Orbitron', sans-serif;
         padding: 2rem;
       }
 
       .login-content {
-        background: #0a0a0a;
-        border: 1px solid rgba(0, 255, 255, 0.1);
         padding: 2rem;
         border-radius: 18px;
-        box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
         text-align: center;
         max-width: 400px;
         width: 100%;
