@@ -6,18 +6,19 @@ export function renderDashboardArtiste(container) {
   container.innerHTML = `
     <style>
       .dashboard-artiste {
-        max-width: 600px;
+        max-width: 720px;
         margin: 4rem auto 2rem;
         padding: 2rem;
-        background: rgba(0, 240, 255, 0.03);
-        border: 1px solid rgba(0, 240, 255, 0.15);
-        border-radius: 12px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--glow);
         text-align: center;
-        box-shadow: 0 0 20px rgba(0, 240, 255, 0.05);
         font-family: 'Orbitron', sans-serif;
         animation: fadeSlideIn 1s ease-out forwards;
         opacity: 0;
         transform: translateY(20px);
+        backdrop-filter: var(--blur);
       }
 
       @keyframes fadeSlideIn {
@@ -28,39 +29,43 @@ export function renderDashboardArtiste(container) {
       }
 
       .dashboard-artiste h2 {
-        font-size: 1.7rem;
-        color: #00f0ff;
-        text-shadow: 0 0 8px #00f0ff;
+        font-size: 1.9rem;
+        color: var(--accent);
+        text-shadow: 0 0 10px var(--accent);
         margin-bottom: 1rem;
       }
 
       .dashboard-artiste p {
         font-size: 1rem;
-        color: #ffffffcc;
-        margin: 0.4rem 0;
+        color: var(--text-secondary);
+        margin: 0.3rem 0;
       }
 
       .dashboard-artiste button,
       .dashboard-artiste a.button-link {
         margin-top: 1.2rem;
         display: inline-block;
-        padding: 0.75rem 1.5rem;
-        background: #00f0ff22;
-        border: 1px solid #00f0ff55;
-        border-radius: 8px;
-        color: #00f0ff;
-        font-family: 'Orbitron', sans-serif;
+        padding: 0.8rem 1.6rem;
+        background: linear-gradient(145deg, rgba(0,255,255,0.05), rgba(0,255,255,0.08));
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        color: var(--accent);
         font-size: 0.95rem;
+        font-family: 'Orbitron', sans-serif;
         cursor: pointer;
         text-decoration: none;
-        transition: 0.3s ease;
+        box-shadow: 0 0 12px rgba(0,255,255,0.15);
+        transition: all 0.3s ease;
         margin-left: 0.5rem;
         margin-right: 0.5rem;
+        text-transform: uppercase;
       }
 
       .dashboard-artiste button:hover,
       .dashboard-artiste a.button-link:hover {
-        background: #00f0ff44;
+        background: var(--accent);
+        color: #000;
+        box-shadow: 0 0 25px rgba(0,255,255,0.5);
         transform: scale(1.05);
       }
 
@@ -70,19 +75,15 @@ export function renderDashboardArtiste(container) {
 
       .notif-box {
         margin-top: 3rem;
-        padding: 1.2rem;
-        border-radius: 10px;
-        border: 1px dashed #00f0ff66;
-        background: rgba(0, 240, 255, 0.04);
-        color: #00f0ffbb;
+        padding: 1.2rem 1.5rem;
+        border-radius: var(--radius);
+        border: 1px dashed var(--accent);
+        background: rgba(0,255,255,0.03);
+        color: var(--accent);
         font-size: 0.9rem;
-        line-height: 1.5;
-        animation: fadeNotif 1.5s ease-in-out;
-      }
-
-      @keyframes fadeNotif {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+        line-height: 1.6;
+        text-shadow: 0 0 5px rgba(0,255,255,0.3);
+        box-shadow: inset 0 0 8px rgba(0,255,255,0.06);
       }
 
       @media (max-width: 500px) {
@@ -90,6 +91,10 @@ export function renderDashboardArtiste(container) {
         .dashboard-artiste a.button-link {
           width: 100%;
           margin: 0.5rem 0;
+        }
+
+        .dashboard-artiste {
+          padding: 1.2rem;
         }
       }
     </style>
@@ -118,12 +123,12 @@ export function renderDashboardArtiste(container) {
       <div id="artistContent"></div>
 
       <div class="notif-box">
-        🛎️ Info : N’oublie pas de remplir ton formulaire de distribution à temps pour apparaître dans la prochaine sortie hebdomadaire. <br />
+        🛎️ Info : N’oublie pas de remplir ton formulaire de distribution à temps pour apparaître plus rapidement sur les plateformes. <br />
         En cas de question, contacte-nous à tout moment.
       </div>
     </div>
   `;
 
   document.getElementById("btnViewPlaylists").onclick = () =>
-  renderPlaylistManager(document.getElementById("artistContent"), user.id);
+    renderPlaylistManager(document.getElementById("artistContent"), user.id);
 }
