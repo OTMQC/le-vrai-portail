@@ -1,4 +1,4 @@
-import { ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 import { collection, addDoc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { storage, db } from "../../firebase.js";
 import { getCurrentUser } from "../../auth.js";
@@ -85,7 +85,7 @@ export async function renderDocumentSender(container) {
         <option value="">Choisir un artiste...</option>
         ${artistOptions}
       </select>
-      <input type="file" id="fileInput" required />
+      <input type="file" id="fileInput" accept="application/pdf" required />
       <button type="submit">TÉLÉVERSER</button>
       <div id="uploadProgress"></div>
     </form>
@@ -96,7 +96,7 @@ export async function renderDocumentSender(container) {
   const artistSelect = document.getElementById("artistSelect");
   const uploadProgress = document.getElementById("uploadProgress");
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const file = fileInput.files[0];
@@ -112,42 +112,29 @@ export async function renderDocumentSender(container) {
 
     const timestamp = Date.now();
     const fileRef = ref(storage, `documents/${artistId}/${timestamp}_${file.name}`);
-    const uploadTask = uploadBytesResumable(fileRef, file);
 
-    uploadProgress.textContent = "⏳ Téléversement en cours...";
+    try {
+      uploadProgress.textContent = "⏳ Téléversement en cours...";
+      await uploadBytes(fileRef, file); // version simple sans résumable
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        uploadProgress.innerHTML = `📡 Progression : <strong>${progress.toFixed(1)}%</strong>`;
-        console.log("🔄 Progression", progress);
-      },
-      (error) => {
-        console.error("❌ Erreur upload:", error);
-        uploadProgress.innerHTML = `<span style="color: red;">❌ Échec du téléversement</span>`;
-      },
-      async () => {
-        try {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+      const downloadURL = await getDownloadURL(fileRef);
 
-          await addDoc(collection(db, "documents"), {
-            artistId,
-            fileName: file.name,
-            fileUrl: downloadURL,
-            uploadedAt: serverTimestamp()
-          });
+      await addDoc(collection(db, "documents"), {
+        artistId,
+        fileName: file.name,
+        fileUrl: downloadURL,
+        uploadedAt: serverTimestamp()
+      });
 
-          uploadProgress.innerHTML = `
-            ✅ <strong>Fichier enregistré !</strong><br/>
-            🔗 <a href="${downloadURL}" target="_blank" style="color: #00f0ff; text-decoration: underline;">Voir le document</a>
-          `;
-          console.log("✅ Upload terminé :", downloadURL);
-        } catch (err) {
-          console.error("❌ Erreur Firestore:", err);
-          uploadProgress.innerHTML = `<span style="color: red;">⚠️ Erreur Firestore.</span>`;
-        }
-      }
-    );
+      uploadProgress.innerHTML = `
+        ✅ <strong>Fichier enregistré !</strong><br/>
+        🔗 <a href="${downloadURL}" target="_blank" style="color: #00f0ff; text-decoration: underline;">Voir le document</a>
+      `;
+      console.log("✅ Upload terminé :", downloadURL);
+
+    } catch (error) {
+      console.error("❌ Erreur upload ou Firestore:", error);
+      uploadProgress.innerHTML = `<span style="color: red;">❌ Échec du téléversement</span>`;
+    }
   });
 }
