@@ -1,8 +1,11 @@
-import { getCurrentUser } from "../auth.js";
+import { renderArtistManager } from "./sections/artistManager.js";
+import { renderDocumentSender } from "./sections/documentSender.js";
 import { renderPlaylistManager } from "./sections/playlistManager.js";
+import { db, storage } from "../firebase.js";
+import { collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { ref, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-export function renderDashboardArtiste(container) {
-  const user = getCurrentUser();
+export function renderDashboardAdmin(container) {
   container.innerHTML = `
     <style>
       .dashboard-artiste {
@@ -86,6 +89,20 @@ export function renderDashboardArtiste(container) {
         box-shadow: inset 0 0 8px rgba(0,255,255,0.06);
       }
 
+      #documentList {
+        margin-top: 1.5rem;
+        font-family: 'Orbitron', sans-serif;
+        text-align: left;
+        color: var(--accent);
+      }
+
+      #documentList a {
+        display: block;
+        color: #00f0ff;
+        text-decoration: underline;
+        margin-bottom: 0.7rem;
+      }
+
       @media (max-width: 500px) {
         .dashboard-artiste button,
         .dashboard-artiste a.button-link {
@@ -104,6 +121,7 @@ export function renderDashboardArtiste(container) {
       <p>ID : ${user?.id}</p>
 
       <button id="btnViewPlaylists">VOIR LES PLAYLISTS</button>
+      <button id="btnViewDocuments">MES DOCUMENTS</button>
 
       <a
         href="https://docs.google.com/forms/d/e/1FAIpQLSeZpWUqmZrxXZUQzb-qzTaa7j22S3CmhrdUX7SBUrZgBp4nsA/viewform"
@@ -113,10 +131,7 @@ export function renderDashboardArtiste(container) {
         FORMULAIRE DE DISTRIBUTION
       </a>
 
-      <a
-        href="mailto:julien@onthemapqc.com"
-        class="button-link"
-      >
+      <a href="mailto:julien@onthemapqc.com" class="button-link">
         CONTACTER LE SUPPORT
       </a>
 
@@ -131,4 +146,30 @@ export function renderDashboardArtiste(container) {
 
   document.getElementById("btnViewPlaylists").onclick = () =>
     renderPlaylistManager(document.getElementById("artistContent"), user.id);
+
+  document.getElementById("btnViewDocuments").onclick = () =>
+    renderArtistDocuments(document.getElementById("artistContent"), user.id);
+}
+
+async function renderArtistDocuments(container, userId) {
+  container.innerHTML = `<h3 class="neon-section-title">Mes Documents 🔐</h3><div id="documentList">Chargement...</div>`;
+  const docList = document.getElementById("documentList");
+
+  const q = query(collection(db, "documents"), where("artistId", "==", userId));
+  const snapshot = await getDocs(q);
+
+  if (snapshot.empty) {
+    docList.innerHTML = "<p style='color:#888;'>Aucun document disponible.</p>";
+    return;
+  }
+
+  docList.innerHTML = "";
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const link = document.createElement("a");
+    link.href = data.fileUrl;
+    link.target = "_blank";
+    link.textContent = `📄 ${data.fileName}`;
+    docList.appendChild(link);
+  });
 }

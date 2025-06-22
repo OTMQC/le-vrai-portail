@@ -1,8 +1,21 @@
 import { ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { collection, addDoc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { storage, db } from "../../firebase.js";
+import { getCurrentUser } from "../../auth.js";
 
-export function renderDocumentSender(container) {
+export async function renderDocumentSender(container) {
+  const currentUser = getCurrentUser();
+  if (!currentUser || currentUser.id !== "admin") {
+    container.innerHTML = "<p style='color: red; text-align: center;'>Accès restreint à l’administrateur.</p>";
+    return;
+  }
+
+  const artistDocs = await getDocs(collection(db, "artistes"));
+  const artistOptions = artistDocs.docs.map(doc => {
+    const data = doc.data();
+    return `<option value="${data.id}">${data.name} (${data.id})</option>`;
+  }).join("");
+
   container.innerHTML = `
     <style>
       .neon-section-title {
@@ -19,7 +32,7 @@ export function renderDocumentSender(container) {
         border: 1px solid rgba(0, 255, 255, 0.15);
         border-radius: 18px;
         padding: 1.5rem;
-        max-width: 400px;
+        max-width: 460px;
         width: 100%;
         margin: 0 auto;
         box-shadow: 0 0 25px rgba(0, 255, 255, 0.05);
@@ -28,7 +41,7 @@ export function renderDocumentSender(container) {
         gap: 1rem;
       }
 
-      .document-upload-wrapper input[type="text"],
+      .document-upload-wrapper select,
       .document-upload-wrapper input[type="file"] {
         background: #111;
         border: 1px solid #00f0ff55;
@@ -37,11 +50,6 @@ export function renderDocumentSender(container) {
         color: #fff;
         font-family: 'Orbitron', sans-serif;
         font-size: 0.9rem;
-      }
-
-      .document-upload-wrapper input::placeholder {
-        color: #888;
-        font-size: 0.85rem;
       }
 
       .document-upload-wrapper button {
@@ -73,7 +81,10 @@ export function renderDocumentSender(container) {
     <h3 class="neon-section-title">Envoi de documents 📤</h3>
 
     <form id="documentForm" class="document-upload-wrapper">
-      <input type="text" id="artistId" placeholder="ex: julz0201" required />
+      <select id="artistSelect" required>
+        <option value="">Choisir un artiste...</option>
+        ${artistOptions}
+      </select>
       <input type="file" id="fileInput" required />
       <button type="submit">TÉLÉVERSER</button>
       <div id="uploadProgress"></div>
@@ -82,13 +93,13 @@ export function renderDocumentSender(container) {
 
   const form = document.getElementById("documentForm");
   const fileInput = document.getElementById("fileInput");
-  const artistInput = document.getElementById("artistId");
+  const artistSelect = document.getElementById("artistSelect");
   const uploadProgress = document.getElementById("uploadProgress");
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const file = fileInput.files[0];
-    const artistId = artistInput.value.trim();
+    const artistId = artistSelect.value.trim();
 
     if (!file || !artistId) {
       uploadProgress.textContent = "⚠️ Veuillez remplir tous les champs.";
