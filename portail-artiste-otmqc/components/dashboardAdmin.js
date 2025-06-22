@@ -56,7 +56,7 @@ export function renderDashboardAdmin(container) {
         text-shadow: 0 0 12px #00f0ff, 0 0 25px #00f0ff;
         text-align: center;
         color: #00f0ff;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         font-family: 'Orbitron', sans-serif;
         animation: fadeIn 1.2s ease-out;
       }
@@ -67,7 +67,7 @@ export function renderDashboardAdmin(container) {
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         animation: fadeIn 1.6s ease-in;
       }
 
@@ -171,12 +171,30 @@ export function renderDashboardAdmin(container) {
         }
 
         .clock-section {
-          flex-direction: column;
-          gap: 1.5rem;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+          margin-top: 1rem;
+        }
+
+        .clock-box {
+          width: 30%;
+          max-width: 120px;
+        }
+
+        .clock-flag {
+          width: 36px;
+          height: 24px;
         }
 
         .digital-clock {
-          font-size: 1rem;
+          font-size: 0.95rem;
+          width: 100%;
+        }
+
+        .clock-label {
+          font-size: 0.7rem;
         }
       }
     </style>
