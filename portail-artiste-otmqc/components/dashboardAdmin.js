@@ -50,7 +50,7 @@ export function renderDashboardAdmin(container) {
 
       h2.admin-title {
         font-size: 2rem;
-        text-shadow: 0 0 12px var(--accent), 0 0 25px #00f0ff;
+        text-shadow: 0 0 12px #00f0ff, 0 0 25px #00f0ff;
         text-align: center;
         color: #00f0ff;
         margin-bottom: 2rem;
@@ -63,7 +63,7 @@ export function renderDashboardAdmin(container) {
         flex-wrap: wrap;
         justify-content: center;
         align-items: flex-end;
-        gap: 2rem;
+        gap: 2.5rem;
         margin-bottom: 3rem;
         animation: fadeIn 1.6s ease-in;
       }
@@ -78,15 +78,18 @@ export function renderDashboardAdmin(container) {
       }
 
       .clock-flag {
-        width: 36px;
-        height: auto;
-        margin-bottom: 5px;
-        filter: brightness(0) saturate(100%) invert(47%) sepia(100%) saturate(750%) hue-rotate(170deg) brightness(102%) contrast(110%);
-        transition: transform 0.4s ease;
+        width: 48px;
+        height: 32px;
+        border-radius: 4px;
+        box-shadow: 0 0 12px #00f0ff, 0 0 4px #007d99;
+        filter: hue-rotate(170deg) brightness(1.2) contrast(1.2) saturate(1.8);
+        animation: tvGlitch 1.4s infinite alternate ease-in-out;
       }
 
-      .clock-flag:hover {
-        transform: scale(1.1) rotate(2deg);
+      @keyframes tvGlitch {
+        0%   { transform: scale(1) rotate(0deg); }
+        50%  { transform: scale(1.02) rotate(-1deg); }
+        100% { transform: scale(0.98) rotate(1deg); }
       }
 
       .clock-label {
@@ -170,7 +173,7 @@ export function renderDashboardAdmin(container) {
         <h2 class="admin-title">Nœud Central d’Opérations — OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
-            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Quebec flag" />
+            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Québec flag" />
             <div class="clock-label">MONTRÉAL</div>
             <span id="clock-montreal" class="digital-clock">--:--:--</span>
           </div>
