@@ -19,10 +19,14 @@ export function renderLogin(container) {
       }
 
       .login-content {
+        background: #0a0a0a;
+        border: 1px solid rgba(0, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 18px;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
         text-align: center;
         max-width: 400px;
         width: 100%;
-        margin: 0 auto;
       }
 
       .neon-logo {
