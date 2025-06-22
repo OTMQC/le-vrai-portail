@@ -5,24 +5,27 @@ import { storage, db } from "../../firebase.js";
 export function renderDocumentSender(container) {
   container.innerHTML = `
     <style>
+      .neon-section-title {
+        font-family: 'Orbitron', sans-serif;
+        color: #00f0ff;
+        text-align: center;
+        font-size: 1.3rem;
+        text-shadow: 0 0 6px #00f0ff, 0 0 12px #00f0ff;
+        margin-bottom: 1.5rem;
+      }
+
       .document-upload-wrapper {
         background: #0a0a0a;
         border: 1px solid rgba(0, 255, 255, 0.15);
         border-radius: 18px;
-        padding: 1.2rem;
-        margin-top: 2rem;
-        max-width: 450px;
+        padding: 1.5rem;
+        max-width: 400px;
         width: 100%;
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
-        animation: fadeIn 1.2s ease-in-out;
-      }
-
-      .document-upload-wrapper label {
-        display: block;
-        margin-bottom: 0.4rem;
-        color: #00f0ff;
-        font-family: 'Orbitron', sans-serif;
-        font-size: 0.85rem;
+        margin: 0 auto;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
       }
 
       .document-upload-wrapper input[type="text"],
@@ -30,19 +33,17 @@ export function renderDocumentSender(container) {
         background: #111;
         border: 1px solid #00f0ff55;
         border-radius: 12px;
-        padding: 0.8rem 1rem;
+        padding: 0.9rem 1rem;
         color: #fff;
         font-family: 'Orbitron', sans-serif;
         width: 100%;
-        margin-bottom: 1rem;
-        box-shadow: inset 0 0 5px rgba(0,255,255,0.1);
+        font-size: 0.9rem;
+        box-shadow: inset 0 0 5px rgba(0,255,255,0.08);
       }
 
-      .document-upload-wrapper input[type="file"] {
-        padding: 0.6rem 0.5rem;
-        font-size: 0.9rem;
-        background: #1a1a1a;
-        color: #00f0ff;
+      .document-upload-wrapper input::placeholder {
+        color: #888;
+        font-size: 0.85rem;
       }
 
       .document-upload-wrapper button {
@@ -65,36 +66,21 @@ export function renderDocumentSender(container) {
 
       #uploadProgress {
         margin-top: 1rem;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-family: 'Orbitron', sans-serif;
-        color: #00f0ff;
         text-align: center;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        color: #00f0ff;
       }
     </style>
 
-    <div class="document-upload-wrapper">
-      <form id="documentForm">
-        <label for="artistId">ID Artiste :</label>
-        <input type="text" id="artistId" placeholder="ex: julz0201" required />
+    <h3 class="neon-section-title">Envoi de documents 📤</h3>
 
-        <label for="fileInput">Fichier :</label>
-        <input type="file" id="fileInput" required />
-
-        <button type="submit">TÉLÉVERSER</button>
-      </form>
+    <form id="documentForm" class="document-upload-wrapper">
+      <input type="text" id="artistId" placeholder="ex: julz0201" required />
+      <input type="file" id="fileInput" required />
+      <button type="submit">TÉLÉVERSER</button>
       <div id="uploadProgress"></div>
-    </div>
+    </form>
   `;
 
   const form = document.getElementById("documentForm");
