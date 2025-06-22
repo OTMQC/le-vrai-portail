@@ -5,6 +5,8 @@ export async function login(id, code) {
   if (id === "admin" && code === "Carotte24$") {
     localStorage.setItem("auth", "true");
     localStorage.setItem("role", "admin");
+    localStorage.setItem("currentUserId", "admin");
+    localStorage.setItem("currentUserName", "Administrateur");
     return true;
   }
 
@@ -14,12 +16,12 @@ export async function login(id, code) {
   if (docSnap.exists()) {
     const user = docSnap.data();
     if (user.password === code) {
-  localStorage.setItem("auth", "true");
-  localStorage.setItem("role", "artiste");
-  localStorage.setItem("currentUserId", user.id);
-  localStorage.setItem("currentUserName", user.name);
-  return true;
-}
+      localStorage.setItem("auth", "true");
+      localStorage.setItem("role", "artiste");
+      localStorage.setItem("currentUserId", user.id);
+      localStorage.setItem("currentUserName", user.name);
+      return true;
+    }
   }
 
   return false;
@@ -41,6 +43,7 @@ export function getRole() {
 export function getCurrentUser() {
   return {
     id: localStorage.getItem("currentUserId"),
-    name: localStorage.getItem("currentUserName")
+    name: localStorage.getItem("currentUserName"),
+    role: localStorage.getItem("role")
   };
 }

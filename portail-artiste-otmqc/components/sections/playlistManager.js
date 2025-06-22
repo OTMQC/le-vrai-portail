@@ -1,4 +1,9 @@
+import { getCurrentUser } from "../../auth.js";
+
 export function renderPlaylistManager(container, userId = "julz001") {
+  const user = getCurrentUser();
+  const isAdmin = user?.role === "admin";
+
   container.innerHTML = `
     <style>
       .neon-section-title {
@@ -62,31 +67,55 @@ export function renderPlaylistManager(container, userId = "julz001") {
         margin-top: 1rem;
         list-style: none;
         padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
       }
 
       #playlistList li {
-        margin-bottom: 0.5rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #101010;
+        border: 1px solid #00f0ff33;
+        padding: 1rem;
+        border-radius: 12px;
+      }
+
+      #playlistList iframe {
+        border-radius: 10px;
+        border: none;
+        width: 100%;
+        max-width: 320px;
+        height: 80px;
       }
 
       #playlistList button {
         background: transparent;
         color: red;
         border: none;
-        margin-left: 1rem;
         cursor: pointer;
+        font-size: 1.2rem;
+        position: absolute;
+        top: 8px;
+        right: 12px;
       }
     </style>
 
     <h3 class="neon-section-title">Gestion des playlists Spotify 🎵</h3>
+    ${isAdmin ? `
     <form id="addPlaylistForm" class="playlist-wrapper">
       <input type="url" id="playlistUrl" placeholder="Lien Spotify" required />
       <button type="submit">AJOUTER</button>
-      <ul id="playlistList"></ul>
-    </form>
+    </form>` : ''}
+    <ul id="playlistList"></ul>
   `;
 
   loadPlaylists(userId);
-  document.getElementById("addPlaylistForm").onsubmit = (e) => addPlaylist(e, userId);
+  if (isAdmin) {
+    document.getElementById("addPlaylistForm").onsubmit = (e) => addPlaylist(e, userId);
+  }
 }
 
 function getPlaylists() {
@@ -114,13 +143,24 @@ function loadPlaylists(userId) {
   const userPlaylists = getPlaylists()[userId] || [];
 
   if (userPlaylists.length === 0) {
-    list.innerHTML = "<p>Aucune playlist ajoutée.</p>";
+    list.innerHTML = "<p style='text-align:center;color:#888;'>Aucune playlist ajoutée.</p>";
     return;
   }
 
   userPlaylists.forEach((url, i) => {
-    list.innerHTML += `<li>${url} <button onclick="deletePlaylist('${userId}', ${i})">❌</button></li>`;
+    const embedUrl = convertToSpotifyEmbed(url);
+    list.innerHTML += `
+      <li>
+        <iframe src="${embedUrl}" allow="encrypted-media"></iframe>
+        ${getCurrentUser()?.role === "admin" ? `<button onclick="deletePlaylist('${userId}', ${i})">❌</button>` : ""}
+      </li>`;
   });
+}
+
+function convertToSpotifyEmbed(url) {
+  if (!url.includes("spotify.com/playlist/")) return url;
+  const id = url.split("/playlist/")[1]?.split("?")[0];
+  return `https://open.spotify.com/embed/playlist/${id}?utm_source=generator&theme=0`;
 }
 
 window.deletePlaylist = (userId, index) => {
