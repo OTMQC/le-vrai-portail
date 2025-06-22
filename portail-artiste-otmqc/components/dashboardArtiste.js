@@ -97,23 +97,22 @@ export function renderDashboardArtiste(container) {
     <div class="dashboard-artiste">
       <h2>Bienvenue ${user?.name || "Artiste"} 🎤</h2>
       <p>ID : ${user?.id}</p>
-      <p>Date de signature : ${user?.signatureDate}</p>
 
-      <button id="btnViewPlaylists">🎧 Voir les playlists</button>
+      <button id="btnViewPlaylists">VOIR LES PLAYLISTS</button>
 
       <a
         href="https://docs.google.com/forms/d/e/1FAIpQLSeZpWUqmZrxXZUQzb-qzTaa7j22S3CmhrdUX7SBUrZgBp4nsA/viewform"
         target="_blank"
         class="button-link"
       >
-        🚀 Formulaire de distribution
+        FORMULAIRE DE DISTRIBUTION
       </a>
 
       <a
         href="mailto:julien@onthemapqc.com"
         class="button-link"
       >
-        ✉️ Contacter l’administration
+        CONTACTER LE SUPPORT
       </a>
 
       <div id="artistContent"></div>
