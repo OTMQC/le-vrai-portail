@@ -150,25 +150,25 @@ export function renderDashboardAdmin(container) {
 
     <div class="admin-wrapper">
       <div class="sidebar">
-        <button id="btnAddArtist">➕ Ajouter un artiste</button>
-        <button id="btnSendDocs">📁 Documents</button>
-        <button id="btnManagePlaylists">🎶 Playlists</button>
+        <button id="btnAddArtist"> Ajouter un artiste</button>
+        <button id="btnSendDocs"> Documents</button>
+        <button id="btnManagePlaylists"> Playlists</button>
       </div>
       <div class="admin-main">
         <h2 class="admin-title">Console centrale d'administration OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">☁️</div>
+            <div class="clock-flag futuristic-icon">MTL</div>
             <div class="clock-label">MONTRÉAL</div>
             <span id="clock-montreal" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">🌐</div>
+            <div class="clock-flag futuristic-icon">PARIS</div>
             <div class="clock-label">PARIS</div>
             <span id="clock-paris" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">🚀</div>
+            <div class="clock-flag futuristic-icon">LA</div>
             <div class="clock-label">LOS ANGELES</div>
             <span id="clock-la" class="digital-clock">--:--:--</span>
           </div>
