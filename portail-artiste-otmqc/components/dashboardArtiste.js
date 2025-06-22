@@ -2,10 +2,13 @@ import { renderArtistManager } from "./sections/artistManager.js";
 import { renderDocumentSender } from "./sections/documentSender.js";
 import { renderPlaylistManager } from "./sections/playlistManager.js";
 import { db, storage } from "../firebase.js";
-import { collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getCurrentUser } from "../auth.js";
+import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { ref, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-export function renderDashboardAdmin(container) {
+export function renderDashboardArtiste(container) {
+  const user = getCurrentUser();
+
   container.innerHTML = `
     <style>
       .dashboard-artiste {
