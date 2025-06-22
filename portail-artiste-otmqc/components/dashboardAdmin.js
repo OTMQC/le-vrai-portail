@@ -206,7 +206,7 @@ export function renderDashboardAdmin(container) {
         <button id="btnManagePlaylists">Playlists</button>
       </div>
       <div class="admin-main">
-        <h2 class="admin-title">Nœud Central d’Opérations — OTMQC</h2>
+        <h2 class="admin-title">Nœud Central d’Opérations OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
             <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Québec flag" />
