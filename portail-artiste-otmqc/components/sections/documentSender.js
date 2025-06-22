@@ -98,6 +98,7 @@ export async function renderDocumentSender(container) {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+
     const file = fileInput.files[0];
     const artistId = artistSelect.value.trim();
 
@@ -105,6 +106,9 @@ export async function renderDocumentSender(container) {
       uploadProgress.textContent = "⚠️ Veuillez remplir tous les champs.";
       return;
     }
+
+    console.log("✅ Fichier sélectionné :", file.name);
+    console.log("🎯 Envoi vers :", artistId);
 
     const timestamp = Date.now();
     const fileRef = ref(storage, `documents/${artistId}/${timestamp}_${file.name}`);
@@ -117,9 +121,10 @@ export async function renderDocumentSender(container) {
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         uploadProgress.innerHTML = `📡 Progression : <strong>${progress.toFixed(1)}%</strong>`;
+        console.log("🔄 Progression", progress);
       },
       (error) => {
-        console.error("Erreur:", error);
+        console.error("❌ Erreur upload:", error);
         uploadProgress.innerHTML = `<span style="color: red;">❌ Échec du téléversement</span>`;
       },
       async () => {
@@ -137,8 +142,9 @@ export async function renderDocumentSender(container) {
             ✅ <strong>Fichier enregistré !</strong><br/>
             🔗 <a href="${downloadURL}" target="_blank" style="color: #00f0ff; text-decoration: underline;">Voir le document</a>
           `;
+          console.log("✅ Upload terminé :", downloadURL);
         } catch (err) {
-          console.error("Erreur Firestore:", err);
+          console.error("❌ Erreur Firestore:", err);
           uploadProgress.innerHTML = `<span style="color: red;">⚠️ Erreur Firestore.</span>`;
         }
       }
