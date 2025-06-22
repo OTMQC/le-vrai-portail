@@ -78,9 +78,15 @@ export function renderDashboardAdmin(container) {
       }
 
       .clock-flag {
-        width: 30px;
+        width: 36px;
         height: auto;
-        filter: brightness(0) saturate(100%) invert(51%) sepia(99%) saturate(350%) hue-rotate(155deg) brightness(102%) contrast(97%);
+        margin-bottom: 5px;
+        filter: brightness(0) saturate(100%) invert(47%) sepia(100%) saturate(750%) hue-rotate(170deg) brightness(102%) contrast(110%);
+        transition: transform 0.4s ease;
+      }
+
+      .clock-flag:hover {
+        transform: scale(1.1) rotate(2deg);
       }
 
       .clock-label {
@@ -161,7 +167,7 @@ export function renderDashboardAdmin(container) {
         <button id="btnManagePlaylists">Playlists</button>
       </div>
       <div class="admin-main">
-        <h2 class="admin-title">🧠 Nœud Central d’Opérations — OTMQC</h2>
+        <h2 class="admin-title">Nœud Central d’Opérations — OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
             <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Quebec flag" />
