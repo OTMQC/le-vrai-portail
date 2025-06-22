@@ -2,7 +2,6 @@ import { renderArtistManager } from "./sections/artistManager.js";
 import { renderDocumentSender } from "./sections/documentSender.js";
 import { renderPlaylistManager } from "./sections/playlistManager.js";
 
-
 export function renderDashboardAdmin(container) {
   container.innerHTML = `
     <style>
@@ -97,6 +96,14 @@ export function renderDashboardAdmin(container) {
         animation: pulseTime 4s ease-in-out infinite;
       }
 
+      .futuristic-icon {
+        font-size: 1.5rem;
+        filter: drop-shadow(0 0 3px cyan);
+        text-shadow: 0 0 6px cyan;
+        animation: pulseIcon 4s infinite ease-in-out;
+        margin-bottom: 0.4rem;
+      }
+
       @keyframes pulseTime {
         0%, 100% {
           text-shadow: 0 0 8px #00f0ff, 0 0 20px #007d99;
@@ -106,8 +113,15 @@ export function renderDashboardAdmin(container) {
         }
       }
 
-      .clock-flag {
-        margin-bottom: 5px;
+      @keyframes pulseIcon {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
       }
 
       @media (max-width: 768px) {
@@ -144,29 +158,19 @@ export function renderDashboardAdmin(container) {
         <h2 class="admin-title">Console centrale d'administration OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
-            <img class="clock-flag" src="https://flagcdn.com/ca.svg" width="28" height="18" alt="CA" />
+            <div class="clock-flag futuristic-icon">☁️</div>
             <div class="clock-label">MONTRÉAL</div>
             <span id="clock-montreal" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <img class="clock-flag" src="https://flagcdn.com/fr.svg" width="28" height="18" alt="FR" />
+            <div class="clock-flag futuristic-icon">🌐</div>
             <div class="clock-label">PARIS</div>
             <span id="clock-paris" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <img class="clock-flag" src="https://flagcdn.com/us.svg" width="28" height="18" alt="US" />
+            <div class="clock-flag futuristic-icon">🚀</div>
             <div class="clock-label">LOS ANGELES</div>
             <span id="clock-la" class="digital-clock">--:--:--</span>
-          </div>
-          <div class="clock-box">
-            <img class="clock-flag" src="https://flagcdn.com/gb.svg" width="28" height="18" alt="GB" />
-            <div class="clock-label">LONDRES</div>
-            <span id="clock-london" class="digital-clock">--:--:--</span>
-          </div>
-          <div class="clock-box">
-            <img class="clock-flag" src="https://flagcdn.com/jp.svg" width="28" height="18" alt="JP" />
-            <div class="clock-label">TOKYO</div>
-            <span id="clock-tokyo" class="digital-clock">--:--:--</span>
           </div>
         </div>
         <div id="adminContent"></div>
@@ -193,9 +197,7 @@ export function renderDashboardAdmin(container) {
     const timeZones = {
       montreal: 'America/Toronto',
       paris: 'Europe/Paris',
-      la: 'America/Los_Angeles',
-      london: 'Europe/London',
-      tokyo: 'Asia/Tokyo',
+      la: 'America/Los_Angeles'
     };
 
     Object.entries(timeZones).forEach(([id, zone]) => {
