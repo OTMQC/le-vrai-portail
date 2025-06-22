@@ -158,18 +158,18 @@ export function renderDashboardAdmin(container) {
         <h2 class="admin-title">Console centrale d'administration OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">MTL</div>
-            <div class="clock-label">MONTRÉAL</div>
+            <div class="clock-flag futuristic-icon">MONTREAL</div>
+            <div class="clock-label">QUEBEC</div>
             <span id="clock-montreal" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
             <div class="clock-flag futuristic-icon">PARIS</div>
-            <div class="clock-label">PARIS</div>
+            <div class="clock-label">FRANCE</div>
             <span id="clock-paris" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">LA</div>
-            <div class="clock-label">LOS ANGELES</div>
+            <div class="clock-flag futuristic-icon">LOS ANGELES</div>
+            <div class="clock-label">USA</div>
             <span id="clock-la" class="digital-clock">--:--:--</span>
           </div>
         </div>
