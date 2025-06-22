@@ -2,10 +2,10 @@ import { db } from "../../firebase.js";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getCurrentUser } from "../../auth.js";
 
-export async function renderPlaylistManager(container, userId = null) {
+export async function renderPlaylistManager(container) {
   const user = getCurrentUser();
   const isAdmin = user?.id === "admin";
-  const targetUserId = isAdmin && userId ? userId : user?.id;
+  const targetUserId = "global";
 
   container.innerHTML = `
     <style>
@@ -128,7 +128,6 @@ export async function renderPlaylistManager(container, userId = null) {
 async function addPlaylist(e, userId) {
   e.preventDefault();
   const url = document.getElementById("playlistUrl").value;
-
   const docRef = doc(db, "playlists", userId);
   await setDoc(docRef, {
     urls: arrayUnion(url)
