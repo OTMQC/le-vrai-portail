@@ -2,7 +2,9 @@ import { getCurrentUser } from "../../auth.js";
 
 export function renderPlaylistManager(container, userId = "julz001") {
   const user = getCurrentUser();
-  const isAdmin = user?.role === "admin";
+  const isAdmin = user?.id === "admin";
+
+  const targetUserId = isAdmin ? userId : user?.id;
 
   container.innerHTML = `
     <style>
@@ -112,9 +114,10 @@ export function renderPlaylistManager(container, userId = "julz001") {
     <ul id="playlistList"></ul>
   `;
 
-  loadPlaylists(userId);
+  loadPlaylists(targetUserId);
+
   if (isAdmin) {
-    document.getElementById("addPlaylistForm").onsubmit = (e) => addPlaylist(e, userId);
+    document.getElementById("addPlaylistForm").onsubmit = (e) => addPlaylist(e, targetUserId);
   }
 }
 
@@ -122,8 +125,8 @@ function getPlaylists() {
   return JSON.parse(localStorage.getItem("playlists") || "{}");
 }
 
-function savePlaylists(p) {
-  localStorage.setItem("playlists", JSON.stringify(p));
+function savePlaylists(playlists) {
+  localStorage.setItem("playlists", JSON.stringify(playlists));
 }
 
 function addPlaylist(e, userId) {
@@ -147,12 +150,12 @@ function loadPlaylists(userId) {
     return;
   }
 
-  userPlaylists.forEach((url, i) => {
+  userPlaylists.forEach((url, index) => {
     const embedUrl = convertToSpotifyEmbed(url);
     list.innerHTML += `
       <li>
         <iframe src="${embedUrl}" allow="encrypted-media"></iframe>
-        ${getCurrentUser()?.role === "admin" ? `<button onclick="deletePlaylist('${userId}', ${i})">❌</button>` : ""}
+        ${getCurrentUser()?.id === "admin" ? `<button onclick="deletePlaylist('${userId}', ${index})">❌</button>` : ""}
       </li>`;
   });
 }
