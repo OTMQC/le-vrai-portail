@@ -46,6 +46,9 @@ export function renderDashboardAdmin(container) {
       .admin-main {
         flex: 1;
         padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       h2.admin-title {
@@ -62,15 +65,15 @@ export function renderDashboardAdmin(container) {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        align-items: flex-end;
-        gap: 2.5rem;
+        align-items: center;
+        gap: 2rem;
         margin-bottom: 3rem;
         animation: fadeIn 1.6s ease-in;
       }
 
       .clock-box {
         text-align: center;
-        min-width: 120px;
+        min-width: 100px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -83,12 +86,6 @@ export function renderDashboardAdmin(container) {
         border-radius: 4px;
         box-shadow: 0 0 12px #00f0ff, 0 0 4px #007d99;
         animation: tvGlitch 1.4s infinite alternate ease-in-out;
-      }
-
-      @keyframes tvGlitch {
-        0%   { transform: scale(1) rotate(0deg); }
-        50%  { transform: scale(1.02) rotate(-1deg); }
-        100% { transform: scale(0.98) rotate(1deg); }
       }
 
       .clock-label {
@@ -104,18 +101,23 @@ export function renderDashboardAdmin(container) {
         align-items: center;
         justify-content: center;
         font-family: 'Orbitron', monospace;
-        font-size: 1.3rem;
-        width: 6.6ch;
+        font-size: 1.2rem;
+        width: 7ch;
         height: 2.5ch;
         background: rgba(0, 240, 255, 0.06);
         border: 1px solid rgba(0, 255, 255, 0.25);
         border-radius: 12px;
         color: #00f0ff;
         text-shadow: 0 0 8px #00f0ff;
-        box-shadow:
-          inset 0 0 5px rgba(0, 255, 255, 0.15),
-          0 0 12px rgba(0, 255, 255, 0.2);
+        box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.15),
+                    0 0 12px rgba(0, 255, 255, 0.2);
         animation: pulseTime 4s ease-in-out infinite;
+      }
+
+      @keyframes tvGlitch {
+        0%   { transform: scale(1) rotate(0deg); }
+        50%  { transform: scale(1.02) rotate(-1deg); }
+        100% { transform: scale(0.98) rotate(1deg); }
       }
 
       @keyframes pulseTime {
@@ -145,19 +147,36 @@ export function renderDashboardAdmin(container) {
 
         .sidebar {
           flex-direction: row;
-          justify-content: space-around;
-          position: sticky;
-          top: 0;
+          flex-wrap: wrap;
+          justify-content: center;
           width: 100%;
           height: auto;
-          box-shadow: 0 2px 15px rgba(0, 255, 255, 0.1);
+          position: static;
           border-right: none;
           border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+          box-shadow: 0 2px 15px rgba(0, 255, 255, 0.1);
+          padding: 0.5rem;
         }
 
         .sidebar button {
-          flex: 1;
+          flex: 1 1 40%;
           text-align: center;
+          font-size: 0.9rem;
+          padding: 0.6rem;
+        }
+
+        .admin-main {
+          padding: 1rem 0.5rem;
+          align-items: center;
+        }
+
+        .clock-section {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .digital-clock {
+          font-size: 1rem;
         }
       }
     </style>
