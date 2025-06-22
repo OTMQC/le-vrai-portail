@@ -1,4 +1,4 @@
-import { db } from "../../firebase.js";
+import { db } from "../firebase.js";
 import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 export function renderArtistCreator(container) {
