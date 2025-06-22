@@ -14,12 +14,12 @@ export async function login(id, code) {
   if (docSnap.exists()) {
     const user = docSnap.data();
     if (user.password === code) {
-      localStorage.setItem("auth", "true");
-      localStorage.setItem("role", "artiste");
-      localStorage.setItem("currentUserId", user.id);
-      localStorage.setItem("currentUserName", user.nom);
-      return true;
-    }
+  localStorage.setItem("auth", "true");
+  localStorage.setItem("role", "artiste");
+  localStorage.setItem("currentUserId", user.id);
+  localStorage.setItem("currentUserName", user.name);
+  return true;
+}
   }
 
   return false;
@@ -44,4 +44,3 @@ export function getCurrentUser() {
     name: localStorage.getItem("currentUserName")
   };
 }
-
