@@ -69,6 +69,13 @@ export function renderDashboardAdmin(container) {
         min-width: 110px;
       }
 
+      .clock-flag {
+        width: 30px;
+        height: auto;
+        margin-bottom: 0.4rem;
+        filter: brightness(0) saturate(100%) invert(51%) sepia(99%) saturate(350%) hue-rotate(155deg) brightness(102%) contrast(97%);
+      }
+
       .clock-label {
         font-size: 0.8rem;
         color: #ffffffdd;
@@ -96,31 +103,12 @@ export function renderDashboardAdmin(container) {
         animation: pulseTime 4s ease-in-out infinite;
       }
 
-      .futuristic-icon {
-        font-size: 1.5rem;
-        filter: drop-shadow(0 0 3px cyan);
-        text-shadow: 0 0 6px cyan;
-        animation: pulseIcon 4s infinite ease-in-out;
-        margin-bottom: 0.4rem;
-      }
-
       @keyframes pulseTime {
         0%, 100% {
           text-shadow: 0 0 8px #00f0ff, 0 0 20px #007d99;
         }
         50% {
           text-shadow: 0 0 4px #00f0ff, 0 0 10px #007d99;
-        }
-      }
-
-      @keyframes pulseIcon {
-        0%, 100% {
-          transform: scale(1);
-          opacity: 0.9;
-        }
-        50% {
-          transform: scale(1.2);
-          opacity: 1;
         }
       }
 
@@ -150,26 +138,26 @@ export function renderDashboardAdmin(container) {
 
     <div class="admin-wrapper">
       <div class="sidebar">
-        <button id="btnAddArtist"> Ajouter un artiste</button>
-        <button id="btnSendDocs"> Documents</button>
-        <button id="btnManagePlaylists"> Playlists</button>
+        <button id="btnAddArtist">Ajouter un artiste</button>
+        <button id="btnSendDocs">Documents</button>
+        <button id="btnManagePlaylists">Playlists</button>
       </div>
       <div class="admin-main">
         <h2 class="admin-title">Console centrale d'administration OTMQC</h2>
         <div class="clock-section">
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">MONTREAL</div>
-            <div class="clock-label">QUEBEC</div>
+            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" alt="Quebec flag" />
+            <div class="clock-label">MONTRÉAL</div>
             <span id="clock-montreal" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">PARIS</div>
-            <div class="clock-label">FRANCE</div>
+            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" alt="France flag" />
+            <div class="clock-label">PARIS</div>
             <span id="clock-paris" class="digital-clock">--:--:--</span>
           </div>
           <div class="clock-box">
-            <div class="clock-flag futuristic-icon">LOS ANGELES</div>
-            <div class="clock-label">USA</div>
+            <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA flag" />
+            <div class="clock-label">LOS ANGELES</div>
             <span id="clock-la" class="digital-clock">--:--:--</span>
           </div>
         </div>
