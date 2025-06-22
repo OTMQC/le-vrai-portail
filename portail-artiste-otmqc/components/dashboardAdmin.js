@@ -1,6 +1,20 @@
 import { renderArtistManager } from "./sections/artistManager.js";
 import { renderDocumentSender } from "./sections/documentSender.js";
 import { renderPlaylistManager } from "./sections/playlistManager.js";
+import { db } from "../firebase.js";
+import { getCurrentUser } from "../auth.js";
+import {
+  collection,
+  getDocs,
+  query,
+  deleteDoc,
+  doc,
+  where
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+  ref,
+  deleteObject
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 export function renderDashboardAdmin(container) {
   container.innerHTML = `
@@ -201,9 +215,9 @@ export function renderDashboardAdmin(container) {
 
     <div class="admin-wrapper">
       <div class="sidebar">
-        <button id="btnAddArtist">Ajouter un artiste</button>
-        <button id="btnSendDocs">Documents</button>
-        <button id="btnManagePlaylists">Playlists</button>
+        <button id="btnAddArtist">AJOUTER UN ARTISTE</button>
+        <button id="btnSendDocs">GESTION DES DOCUMENTS</button>
+        <button id="btnManagePlaylists">PLAYLISTS</button>
       </div>
       <div class="admin-main">
         <h2 class="admin-title">Nœud Central d’Opérations OTMQC</h2>
@@ -229,50 +243,14 @@ export function renderDashboardAdmin(container) {
     </div>
   `;
 
-   const content = document.getElementById("adminContent");
+  const content = document.getElementById("adminContent");
 
   document.getElementById("btnAddArtist").addEventListener("click", () => {
     renderArtistManager(content);
   });
 
-  document.getElementById("btnSendDocs").addEventListener("click", async () => {
-    const db = getFirestore();
-    const storage = getStorage();
-    const snapshot = await getDocs(collection(db, "documents"));
-    const docs = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-
-    content.innerHTML = `
-      <h3 style="color: #00f0ff; font-family: Orbitron; margin-bottom: 1rem;">Documents envoyés</h3>
-      <ul style="list-style: none; padding: 0; font-family: Orbitron;">
-        ${docs.map(d => `
-          <li style="margin-bottom: 1rem; background: rgba(0,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); padding: 1rem; border-radius: 8px;">
-            <strong>${d.name}</strong> → ${d.userId}<br>
-            <a href="${d.url}" target="_blank" style="color: #00f0ff;">Télécharger</a><br>
-            <button data-id="${d.id}" data-path="${d.path}" class="delete-btn" style="margin-top: 0.5rem; background: #ff0033; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
-              Supprimer
-            </button>
-          </li>
-        `).join("")}
-      </ul>
-    `;
-
-    const deleteButtons = content.querySelectorAll(".delete-btn");
-    deleteButtons.forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-        const path = btn.dataset.path;
-        const confirmed = confirm("Supprimer ce document ? Cette action est irréversible.");
-        if (!confirmed) return;
-        try {
-          await deleteDoc(doc(db, "documents", id));
-          await deleteObject(ref(storage, path));
-          btn.closest("li").remove();
-          alert("Document supprimé avec succès.");
-        } catch (err) {
-          alert("Erreur lors de la suppression.");
-        }
-      });
-    });
+  document.getElementById("btnSendDocs").addEventListener("click", () => {
+    renderDocumentSender(content);
   });
 
   document.getElementById("btnManagePlaylists").addEventListener("click", () => {
