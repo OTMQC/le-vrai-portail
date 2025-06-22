@@ -6,7 +6,7 @@ export function renderLogin(container) {
   container.innerHTML = `
     <div class="login-page fade-in">
       <div class="login-content">
-        <img src="assets/logo.png" alt="Logo Connexion" class="login-logo" />
+        <img src="./portail-artiste-otmqc/assets/logo.png" alt="Logo Connexion" class="logo-neon" />
 
         <form id="loginForm" class="login-form">
           <h2>Portail d'Artiste OTMQC</h2>

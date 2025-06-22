@@ -603,6 +603,23 @@ tr:hover {
   50% { opacity: 0; }
 }
 
+.logo-neon {
+  width: 180px; /* ajuste selon ton besoin */
+  max-width: 50%;
+  margin: 0 auto 30px;
+  display: block;
+  filter: drop-shadow(0 0 10px #00f0ff) drop-shadow(0 0 20px #00f0ff);
+  animation: neon-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px #00f0ff) drop-shadow(0 0 20px #00f0ff);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #00f0ff);
+  }
+}
 
 
 
