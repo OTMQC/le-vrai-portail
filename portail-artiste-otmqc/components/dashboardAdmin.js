@@ -50,7 +50,7 @@ export function renderDashboardAdmin(container) {
 
       h2.admin-title {
         font-size: 2rem;
-        text-shadow: 0 0 12px var(--accent), 0 0 25px #00f0ff;
+        text-shadow: 0 0 12px #00f0ff, 0 0 25px #00f0ff;
         text-align: center;
         color: #00f0ff;
         margin-bottom: 2rem;
@@ -63,7 +63,7 @@ export function renderDashboardAdmin(container) {
         flex-wrap: wrap;
         justify-content: center;
         align-items: flex-end;
-        gap: 2rem;
+        gap: 2.5rem;
         margin-bottom: 3rem;
         animation: fadeIn 1.6s ease-in;
       }
@@ -78,19 +78,17 @@ export function renderDashboardAdmin(container) {
       }
 
       .clock-flag {
-        width: 36px;
-        height: auto;
-        margin-bottom: 5px;
-        filter: brightness(0) saturate(100%) invert(47%) sepia(100%) saturate(750%) hue-rotate(170deg) brightness(102%) contrast(110%);
-        animation: flicker 2.5s infinite ease-in-out;
+        width: 48px;
+        height: 32px;
+        border-radius: 4px;
+        box-shadow: 0 0 12px #00f0ff, 0 0 4px #007d99;
+        animation: tvGlitch 1.4s infinite alternate ease-in-out;
       }
 
-      @keyframes flicker {
-        0%, 100% { opacity: 1; }
-        40% { opacity: 0.92; }
-        50% { opacity: 0.7; }
-        60% { opacity: 0.95; }
-        80% { opacity: 0.88; }
+      @keyframes tvGlitch {
+        0%   { transform: scale(1) rotate(0deg); }
+        50%  { transform: scale(1.02) rotate(-1deg); }
+        100% { transform: scale(0.98) rotate(1deg); }
       }
 
       .clock-label {
@@ -185,8 +183,8 @@ export function renderDashboardAdmin(container) {
           </div>
           <div class="clock-box">
             <img class="clock-flag" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA flag" />
-            <div class="clock-label">NEW YORK</div>
-            <span id="clock-ny" class="digital-clock">--:--:--</span>
+            <div class="clock-label">LOS ANGELES</div>
+            <span id="clock-la" class="digital-clock">--:--:--</span>
           </div>
         </div>
         <div id="adminContent"></div>
@@ -213,7 +211,7 @@ export function renderDashboardAdmin(container) {
     const timeZones = {
       montreal: 'America/Toronto',
       paris: 'Europe/Paris',
-      ny: 'America/New_York'
+      la: 'America/Los_Angeles'
     };
 
     Object.entries(timeZones).forEach(([id, zone]) => {
