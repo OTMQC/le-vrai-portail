@@ -3,6 +3,9 @@ import { route } from "../router.js";
 import { renderHeader } from "../components/header.js";
 
 export function renderLogin(container) {
+  // Force fond noir total
+  document.body.classList.add("login-mode");
+
   container.innerHTML = `
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
@@ -12,18 +15,48 @@ export function renderLogin(container) {
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background: #000; /* noir uniforme */
+        background: #000;
         color: #00f0ff;
         font-family: 'Orbitron', sans-serif;
         padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-page::before,
+      .login-page::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 120px;
+        height: 300px;
+        background: radial-gradient(ellipse at center, rgba(0,255,255,0.15) 0%, transparent 70%);
+        transform: translateY(-50%) rotate(25deg);
+        filter: blur(20px);
+        z-index: 0;
+        pointer-events: none;
+        animation: pulseSides 6s ease-in-out infinite;
+      }
+
+      .login-page::after {
+        right: -60px;
+        transform: translateY(-50%) rotate(-25deg);
+      }
+
+      .login-page::before {
+        left: -60px;
       }
 
       .login-content {
+        background: rgba(10,10,10,0.9);
+        border: 1px solid rgba(0, 255, 255, 0.2);
         padding: 2rem;
         border-radius: 18px;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.12);
         text-align: center;
-        max-width: 400px;
+        max-width: 420px;
         width: 100%;
+        z-index: 1;
       }
 
       .neon-logo {
@@ -43,7 +76,7 @@ export function renderLogin(container) {
         margin-bottom: 0.5rem;
         color: #00f0ff;
         text-shadow: 0 0 6px #00f0ff;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
 
       .login-form input {
@@ -52,7 +85,7 @@ export function renderLogin(container) {
         border-radius: 12px;
         padding: 0.9rem 1rem;
         color: #fff;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         box-shadow: inset 0 0 6px rgba(0, 255, 255, 0.1);
       }
 
@@ -86,6 +119,7 @@ export function renderLogin(container) {
         display: flex;
         flex-direction: column;
         gap: 0.8rem;
+        z-index: 1;
       }
 
       .about-toggle {
@@ -125,10 +159,22 @@ export function renderLogin(container) {
         font-weight: bold;
         font-size: 0.9rem;
         transition: 0.3s;
+        text-align: center;
       }
 
       .insta-button:hover {
         background: #00e0e0;
+      }
+
+      @keyframes pulseSides {
+        0%, 100% {
+          opacity: 0.4;
+          transform: translateY(-50%) scale(1);
+        }
+        50% {
+          opacity: 0.7;
+          transform: translateY(-50%) scale(1.08);
+        }
       }
     </style>
 
@@ -169,6 +215,7 @@ export function renderLogin(container) {
     const code = document.getElementById("code").value;
     const success = await login(name, code);
     if (success) {
+      document.body.classList.remove("login-mode");
       renderHeader();
       route();
     } else {
