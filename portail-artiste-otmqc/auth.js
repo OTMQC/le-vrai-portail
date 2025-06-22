@@ -17,6 +17,7 @@ export async function login(id, code) {
       localStorage.setItem("auth", "true");
       localStorage.setItem("role", "artiste");
       localStorage.setItem("currentUserId", user.id);
+      localStorage.setItem("currentUserName", user.nom);
       return true;
     }
   }
@@ -38,5 +39,9 @@ export function getRole() {
 }
 
 export function getCurrentUser() {
-  return localStorage.getItem("currentUserId");
+  return {
+    id: localStorage.getItem("currentUserId"),
+    name: localStorage.getItem("currentUserName")
+  };
 }
+

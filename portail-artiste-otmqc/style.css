@@ -621,6 +621,12 @@ tr:hover {
   }
 }
 
+.neon-logo {
+  max-width: 180px;
+  filter: drop-shadow(0 0 8px #00f0ff);
+  margin-bottom: 1rem;
+}
+
 
 
 
