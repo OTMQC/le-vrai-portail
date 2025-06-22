@@ -108,7 +108,7 @@ export async function renderPlaylistManager(container) {
       }
     </style>
 
-    <h3 class="neon-section-title">Gestion des playlists Spotify 🎵</h3>
+    <h3 class="neon-section-title">Playlist(s) Spotify 🎵</h3>
     ${isAdmin ? `
       <form id="addPlaylistForm" class="playlist-wrapper">
         <input type="url" id="playlistUrl" placeholder="Lien Spotify" required />
